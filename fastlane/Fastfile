@@ -13,8 +13,6 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
-require "shellwords"
-
 default_platform(:mac)
 
 lane :mac do
@@ -27,8 +25,8 @@ lane :mac do
     )
 end
 
-desc "Build and launch Amethyst Dev.app; pass skip_launch:true to build only"
-lane :dev do |options|
+desc "Build Amethyst Dev.app for local debugging"
+lane :dev do
     project_root = File.expand_path("..", __dir__)
     derived_data_path = File.join(project_root, "build", "DerivedData")
     app_path = File.join(derived_data_path, "Build", "Products", "Debug Dev", "Amethyst Dev.app")
@@ -41,7 +39,4 @@ lane :dev do |options|
     )
 
     UI.success("Built #{app_path}")
-
-    skip_launch = ["1", "true", "yes"].include?(options[:skip_launch].to_s.downcase)
-    sh("open -n #{app_path.shellescape}") unless skip_launch
 end

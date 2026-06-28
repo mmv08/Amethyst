@@ -27,7 +27,7 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 [bundle exec] fastlane dev
 ```
 
-Build and launch Amethyst Dev.app; pass skip_launch:true to build only
+Build Amethyst Dev.app for local debugging
 
 ----
 
