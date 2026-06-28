@@ -13,6 +13,8 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
+require "shellwords"
+
 default_platform(:mac)
 
 lane :mac do
@@ -23,4 +25,23 @@ lane :mac do
         export_path: "./build",
         export_options_plist: "./exportOptions.plist"
     )
+end
+
+desc "Build and launch Amethyst Dev.app; pass skip_launch:true to build only"
+lane :dev do |options|
+    project_root = File.expand_path("..", __dir__)
+    derived_data_path = File.join(project_root, "build", "DerivedData")
+    app_path = File.join(derived_data_path, "Build", "Products", "Debug Dev", "Amethyst Dev.app")
+
+    xcodebuild(
+        workspace: "Amethyst.xcworkspace",
+        scheme: "Amethyst Dev",
+        configuration: "Debug Dev",
+        derivedDataPath: derived_data_path
+    )
+
+    UI.success("Built #{app_path}")
+
+    skip_launch = ["1", "true", "yes"].include?(options[:skip_launch].to_s.downcase)
+    sh("open -n #{app_path.shellescape}") unless skip_launch
 end
