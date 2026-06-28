@@ -24,3 +24,19 @@ lane :mac do
         export_options_plist: "./exportOptions.plist"
     )
 end
+
+desc "Build Amethyst Dev.app for local debugging"
+lane :dev do
+    project_root = File.expand_path("..", __dir__)
+    derived_data_path = File.join(project_root, "build", "DerivedData")
+    app_path = File.join(derived_data_path, "Build", "Products", "Debug Dev", "Amethyst Dev.app")
+
+    xcodebuild(
+        workspace: "Amethyst.xcworkspace",
+        scheme: "Amethyst Dev",
+        configuration: "Debug Dev",
+        derivedDataPath: derived_data_path
+    )
+
+    UI.success("Built #{app_path}")
+end

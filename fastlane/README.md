@@ -21,6 +21,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 
 
+### dev
+
+```sh
+[bundle exec] fastlane dev
+```
+
+Build Amethyst Dev.app for local debugging
+
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.
